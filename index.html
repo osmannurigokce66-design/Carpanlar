@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8. Sınıf Çarpanlar ve Katlar Öğrenme Asistanı</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px;
+            background-color: #e5e7eb;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button.action-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button.action-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eef2ff;
+            border-left: 5px solid var(--primary);
+            border-radius: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 2px;
+            font-size: 14px;
+        }
+
+        .summary-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .summary-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📐 Çarpanlar ve Katlar Asistanı</h1>
+        <p>8. Sınıf LGS Matematik Konu Anlatımı ve Hesaplama Aracı</p>
+    </header>
+
+    <!-- Sekmeler -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'ozet')">📚 Konu Özeti</button>
+        <button class="tab-btn" onclick="openTab(event, 'carpanlar')">🔍 Çarpanlar</button>
+        <button class="tab-btn" onclick="openTab(event, 'asal')">🧬 Asal Çarpanlar</button>
+        <button class="tab-btn" onclick="openTab(event, 'ebob-ekok')">⚡ EBOB / EKOK</button>
+        <button class="tab-btn" onclick="openTab(event, 'aralarinda-asal')">🤝 Aralarında Asal</button>
+    </div>
+
+    <!-- 1. KONU ÖZETİ -->
+    <div id="ozet" class="tab-content active">
+        <h2>8. Sınıf Çarpanlar ve Katlar Konu Özeti</h2>
+        
+        <div class="summary-card">
+            <h3>1. Positif Tam Sayı Çarpanları (Bölenleri)</h3>
+            <p>Bir pozitif tam sayıyı kalansız bölen sayılara o sayının <b>çarpanları</b> veya <b>bölenleri</b> denir. Çarpan ve bölen kavramları aynı anlama gelir.</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>2. Asal Sayılar ve Asal Çarpanlar</h3>
+            <p>Sadece 1'e ve kendisine bölünebilen 1'den büyük sayılara <b>asal sayı</b> denir. <i>(2, 3, 5, 7, 11, 13...)</i><br>
+            En küçük ve çift olan tek asal sayı <b>2</b>'dir.</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>3. EBOB (En Büyük Ortak Bölen)</h3>
+            <p>İki ya da daha fazla sayının ortak bölenlerinin en büyüğüdür.<br>
+            💡 <b>İpucu:</b> Problemlerde <i>bütünden parçaya</i> gidiliyorsa (örn: Bidonlardaki yağları şişelere koyma, tarlanın etrafına eşit aralıklarla direk dikme) EBOB kullanılır.</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>4. EKOK (En Küçük Ortak Kat)</h3>
+            <p>İki ya da daha fazla sayının pozitif ortak katlarının en küçüğüdür.<br>
+            💡 <b>İpucu:</b> Problemlerde <i>parçadan bütüne</i> gidiliyorsa (örn: Zillerin birlikte çalması, nöbet tutma, küçük tuğlalardan büyük küp yapma) EKOK kullanılır.</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>5. Aralarında Asal Sayılar</h3>
+            <p>1'den başka ortak böleni olmayan sayılardır.
+            <ul>
+                <li>Sayıların asal olması gerekmez (Örn: 8 ve 9 aralarında asaldır).</li>
+                <li>Ardışık sayılar her zaman aralarında asaldır.</li>
+                <li>Aralarında asal sayıların <b>EBOB'u 1</b>, <b>EKOK'u sayıların çarpımıdır</b>.</li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+    <!-- 2. ÇARPANLAR -->
+    <div id="carpanlar" class="tab-content">
+        <h2>Pozitif Tam Sayı Çarpanlarını Bulma</h2>
+        <div class="input-group">
+            <label for="carpan-input">Bir Sayı Girin:</label>
+            <input type="number" id="carpan-input" placeholder="Örn: 36">
+        </div>
+        <button class="action-btn" onclick="hesaplaCarpanlar()">Çarpanları Hesapla</button>
+        <div id="carpan-sonuc" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- 3. ASAL ÇARPANLAR -->
+    <div id="asal" class="tab-content">
+        <h2>Asal Çarpanlar ve Üslü Gösterim</h2>
+        <div class="input-group">
+            <label for="asal-input">Bir Sayı Girin:</label>
+            <input type="number" id="asal-input" placeholder="Örn: 72">
+        </div>
+        <button class="action-btn" onclick="hesaplaAsalCarpanlar()">Asal Çarpanları Bul</button>
+        <div id="asal-sonuc" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- 4. EBOB / EKOK -->
+    <div id="ebob-ekok" class="tab-content">
+        <h2>EBOB ve EKOK Hesaplama</h2>
+        <div class="input-group">
+            <label for="s1-input">1. Sayı:</label>
+            <input type="number" id="s1-input" placeholder="Örn: 24">
+        </div>
+        <div class="input-group">
+            <label for="s2-input">2. Sayı:</label>
+            <input type="number" id="s2-input" placeholder="Örn: 36">
+        </div>
+        <button class="action-btn" onclick="hesaplaEbobEkok()">EBOB ve EKOK Bul</button>
+        <div id="ebob-ekok-sonuc" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- 5. ARALARINDA ASAL -->
+    <div id="aralarinda-asal" class="tab-content">
+        <h2>Aralarında Asallık Kontrolü</h2>
+        <div class="input-group">
+            <label for="a1-input">1. Sayı:</label>
+            <input type="number" id="a1-input" placeholder="Örn: 8">
+        </div>
+        <div class="input-group">
+            <label for="a2-input">2. Sayı:</label>
+            <input type="number" id="a2-input" placeholder="Örn: 15">
+        </div>
+        <button class="action-btn" onclick="kontrolAralarindaAsal()">Kontrol Et</button>
+        <div id="aralarinda-asal-sonuc" class="result-box" style="display:none;"></div>
+    </div>
+</div>
+
+<script>
+    // Sekme değiştirme işlevi
+    function openTab(evt, tabName) {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    // 1. Çarpan Hesaplama
+    function hesaplaCarpanlar() {
+        const sayi = parseInt(document.getElementById('carpan-input').value);
+        const sonucDiv = document.getElementById('carpan-sonuc');
+        if (!sayi || sayi <= 0) {
+            alert("Lütfen pozitif bir tam sayı girin.");
+            return;
+        }
+
+        let carpanlar = [];
+        for (let i = 1; i <= sayi; i++) {
+            if (sayi % i === 0) carpanlar.push(i);
+        }
+
+        let badges = carpanlar.map(c => `<span class="badge">${c}</span>`).join(' ');
+        sonucDiv.style.display = "block";
+        sonucDiv.innerHTML = `
+            <h3>${sayi} Sayısının Çarpanları / Bölenleri:</h3>
+            <p>${badges}</p>
+            <p><b>Toplam Çarpan Sayısı:</b> ${carpanlar.length} adet</p>
+        `;
+    }
+
+    // 2. Asal Çarpanlar
+    function hesaplaAsalCarpanlar() {
+        let sayi = parseInt(document.getElementById('asal-input').value);
+        const sonucDiv = document.getElementById('asal-sonuc');
+        if (!sayi || sayi <= 1) {
+            alert("Lütfen 1'den büyük bir tam sayı girin.");
+            return;
+        }
+
+        let temp = sayi;
+        let carpanlar = {};
+        let bolen = 2;
+
+        while (temp > 1) {
+            if (temp % bolen === 0) {
+                carpanlar[bolen] = (carpanlar[bolen] || 0) + 1;
+                temp /= bolen;
+            } else {
+                bolen++;
+            }
+        }
+
+        let usluGosterim = Object.entries(carpanlar)
+            .map(([k, v]) => v > 1 ? `${k}<sup>${v}</sup>` : `${k}`)
+            .join(' × ');
+
+        let asalListesi = Object.keys(carpanlar).join(', ');
+
+        sonucDiv.style.display = "block";
+        sonucDiv.innerHTML = `
+            <h3>${sayi} Sayısının Asal Çarpanları:</h3>
+            <p><b>Asal Çarpanlar:</b> ${asalListesi}</p>
+            <p><b>Üslü İfade Gösterimi:</b> ${sayi} = ${usluGosterim}</p>
+        `;
+    }
+
+    // EBOB Hesaplama Yardımcı Fonksiyonu
+    function findEBOB(a, b) {
+        while (b) {
+            let t = b;
+            b = a % b;
+            a = t;
+        }
+        return a;
+    }
+
+    // 3. EBOB / EKOK Hesaplama
+    function hesaplaEbobEkok() {
+        const s1 = parseInt(document.getElementById('s1-input').value);
+        const s2 = parseInt(document.getElementById('s2-input').value);
+        const sonucDiv = document.getElementById('ebob-ekok-sonuc');
+
+        if (!s1 || !s2 || s1 <= 0 || s2 <= 0) {
+            alert("Lütfen iki tane pozitif tam sayı girin.");
+            return;
+        }
+
+        const ebob = findEBOB(s1, s2);
+        const ekok = (s1 * s2) / ebob;
+
+        sonucDiv.style.display = "block";
+        sonucDiv.innerHTML = `
+            <h3>Sonuçlar:</h3>
+            <p><b>EBOB(${s1}, ${s2}):</b> ${ebob}</p>
+            <p><b>EKOK(${s1}, ${s2}):</b> ${ekok}</p>
+            <hr>
+            <p><small>💡 <b>Kural:</b> Sayıların Çarpımı = EBOB × EKOK (${s1} × ${s2} = ${ebob} × ${ekok})</small></p>
+        `;
+    }
+
+    // 4. Aralarında Asallık Kontrolü
+    function kontrolAralarindaAsal() {
+        const a1 = parseInt(document.getElementById('a1-input').value);
+        const a2 = parseInt(document.getElementById('a2-input').value);
+        const sonucDiv = document.getElementById('aralarinda-asal-sonuc');
+
+        if (!a1 || !a2 || a1 <= 0 || a2 <= 0) {
+            alert("Lütfen iki tane pozitif tam sayı girin.");
+            return;
+        }
+
+        const ebob = findEBOB(a1, a2);
+        sonucDiv.style.display = "block";
+
+        if (ebob === 1) {
+            sonucDiv.innerHTML = `
+                <h3 style="color: green;">✅ ${a1} ve ${a2} ARALARINDA ASALDIR.</h3>
+                <p>Çünkü 1 dışında başka ortak bölenleri yoktur.</p>
+                <p><b>EBOB:</b> 1 | <b>EKOK:</b> ${a1 * a2}</p>
+            `;
+        } else {
+            sonucDiv.innerHTML = `
+                <h3 style="color: red;">❌ ${a1} ve ${a2} Aralarında Asal DEĞİLDİR.</h3>
+                <p>Çünkü ikisi de <b>${ebob}</b> sayısına tam bölünür.</p>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>
