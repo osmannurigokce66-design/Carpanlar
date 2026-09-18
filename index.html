@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8. Sınıf Çarpanlar ve Katlar - LGS Uzmanı</title>
+    <title>8. Sınıf Çarpanlar ve Katlar - İnteraktif Öğrenme Platformu</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
+            --primary: #4338ca;
+            --primary-light: #6366f1;
             --secondary: #059669;
-            --bg: #f1f5f9;
+            --bg: #f8fafc;
             --card: #ffffff;
             --text: #0f172a;
             --border: #e2e8f0;
@@ -32,80 +32,115 @@
 
         header {
             text-align: center;
-            background: linear-gradient(135deg, #1e3a8a, var(--primary));
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            padding: 30px 20px;
+            padding: 25px;
             border-radius: 16px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
-        header h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
-        header p { margin: 0; opacity: 0.9; font-size: 1.1rem; }
+        header h1 { margin: 0 0 8px 0; font-size: 2.1rem; }
+        header p { margin: 0; opacity: 0.95; font-size: 1.05rem; }
 
-        /* Navigasyon Sekmeleri */
-        .nav-tabs {
+        /* Ana Navigasyon */
+        .main-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .main-nav-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            background: #e2e8f0;
+            color: var(--text);
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .main-nav-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(67, 56, 202, 0.2);
+        }
+
+        .main-section {
+            display: none;
+            background: var(--card);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .main-section.active { display: block; }
+
+        /* Konu Anlatımı Sol/Üst Menü */
+        .topic-menu {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 10px;
             margin-bottom: 25px;
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 12px;
         }
 
-        .nav-btn {
-            padding: 14px;
-            border: none;
-            background: var(--card);
+        .topic-btn {
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            background: white;
             color: var(--text);
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 10px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border: 2px solid transparent;
+            text-align: center;
+            transition: all 0.2s;
+            font-size: 0.95rem;
         }
 
-        .nav-btn:hover { border-color: var(--primary); }
+        .topic-btn:hover { background: #e0e7ff; color: var(--primary); }
 
-        .nav-btn.active {
-            background: var(--primary);
+        .topic-btn.active {
+            background: var(--primary-light);
             color: white;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+            border-color: var(--primary-light);
         }
 
-        /* İçerik Alanları */
-        .tab-content {
+        /* Alt Konu İçeriği */
+        .subtopic-content {
             display: none;
-            background: var(--card);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
+            animation: fadeIn 0.3s ease-in-out;
         }
 
-        .tab-content.active { display: block; }
+        .subtopic-content.active { display: block; }
 
-        /* Öğretici Kartlar */
-        .topic-card {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-box {
             background: #f8fafc;
-            border-left: 6px solid var(--primary);
+            border-left: 5px solid var(--primary);
             padding: 20px;
+            border-radius: 0 10px 10px 0;
             margin-bottom: 25px;
-            border-radius: 0 12px 12px 0;
-            border-top: 1px solid var(--border);
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
         }
 
-        .topic-card h3 { margin-top: 0; color: var(--primary-dark); font-size: 1.3rem; }
+        .content-box h2 { margin-top: 0; color: var(--primary); font-size: 1.4rem; }
 
-        .formula-box {
+        .example-box {
             background: #eff6ff;
             border: 1px dashed var(--primary);
             padding: 15px;
             border-radius: 8px;
             margin: 15px 0;
-            font-size: 1rem;
         }
 
         .lgs-tip {
@@ -113,15 +148,69 @@
             border-left: 4px solid #f59e0b;
             padding: 12px 15px;
             border-radius: 4px;
-            margin-top: 10px;
+            margin: 15px 0;
             color: #92400e;
             font-weight: 500;
         }
 
-        /* Hesaplama Modülleri Grid */
-        .grid-2 {
+        /* Etkileşimli Soru Tasarımı */
+        .interactive-quiz {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .quiz-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ecfdf5;
+            padding-bottom: 8px;
+        }
+
+        .opt-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) { .opt-grid { grid-template-columns: 1fr; } }
+
+        .opt-btn {
+            padding: 12px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .opt-btn:hover { background: #e2e8f0; }
+
+        .feedback-box {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feedback-box.correct { background: #dcfce7; border: 1px solid #86efac; color: #14532d; }
+        .feedback-box.wrong { background: #fee2e2; border: 1px solid #fca5a5; color: #7f1d1d; }
+
+        /* Hesaplayıcı Modülü Styles */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
 
@@ -132,39 +221,37 @@
             border: 1px solid var(--border);
         }
 
-        .calc-card h4 { margin-top: 0; color: var(--primary); font-size: 1.1rem; }
+        .calc-card h3 { margin-top: 0; color: var(--primary); }
 
-        .input-group { margin-bottom: 15px; }
-        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+        .input-group { margin-bottom: 12px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
         input[type="number"] {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            border-radius: 6px;
             box-sizing: border-box;
             font-size: 1rem;
         }
 
-        button.btn-action {
+        button.action-btn {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: bold;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
-        button.btn-action:hover { background: var(--primary-dark); }
+        button.action-btn:hover { background: var(--primary-light); }
 
         .res-box {
             margin-top: 15px;
-            padding: 15px;
+            padding: 12px;
             background: #e0e7ff;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 0.95rem;
         }
 
@@ -172,83 +259,10 @@
             display: inline-block;
             background: var(--primary);
             color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 3px 8px;
+            border-radius: 4px;
             font-size: 0.85rem;
-            margin: 3px;
-        }
-
-        /* Soru ve Test Tasarımı */
-        .quiz-card {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-        }
-
-        .quiz-tag {
-            background: #dbeafe;
-            color: var(--primary-dark);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
-
-        .opt-btn {
-            padding: 12px;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            text-align: left;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .opt-btn:hover { background: #e2e8f0; }
-
-        .explanation-box {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            display: none;
-            line-height: 1.5;
-        }
-
-        .explanation-box.correct { background: #dcfce7; border: 1px solid #86efac; color: #14532d; }
-        .explanation-box.wrong { background: #fee2e2; border: 1px solid #fca5a5; color: #7f1d1d; }
-
-        /* Çarpan Ağacı Görseli */
-        .tree-node {
-            display: inline-block;
-            border: 2px solid var(--primary);
-            padding: 6px 12px;
-            border-radius: 50%;
-            margin: 5px;
-            background: white;
-            font-weight: bold;
+            margin: 2px;
         }
     </style>
 </head>
@@ -256,178 +270,317 @@
 
 <div class="container">
     <header>
-        <h1>📐 LGS Matematik Master Dersi</h1>
-        <p>1. Ünite: Çarpanlar ve Katlar (Derinlemesine Konu Anlatımı, Hesaplayıcılar ve 10 Soru)</p>
+        <h1>📐 8. Sınıf Çarpanlar ve Katlar</h1>
+        <p>İnteraktif Konu Anlatımı, Modül Soruları ve Otomatik Hesaplayıcılar</p>
     </header>
 
-    <!-- Navigasyon Sekmeleri -->
-    <div class="nav-tabs">
-        <button class="nav-btn active" onclick="openTab(event, 'anlatim')">📚 Detaylı Anlatım</button>
-        <button class="nav-btn" onclick="openTab(event, 'hesaplama')">🧮 Hesaplama Laboratuvarı</button>
-        <button class="nav-btn" onclick="openTab(event, 'agac')">🌳 Çarpan Ağacı Simülatörü</button>
-        <button class="nav-btn" onclick="openTab(event, 'sorular')">🎯 Çözümlü Soru Bankası</button>
+    <!-- Ana Navigasyon Sekmeleri -->
+    <div class="main-nav">
+        <button class="main-nav-btn active" onclick="switchMainTab('konular')">📚 Konu Anlatımı ve Sorular</button>
+        <button class="main-nav-btn" onclick="switchMainTab('hesaplayici')">🧮 Ayrı Hesaplama Araçları</button>
     </div>
 
-    <!-- 1. DETAYLI KONU ANLATIMI -->
-    <div id="anlatim" class="tab-content active">
-        <h2>1. Ünite: Çarpanlar ve Katlar Konu Rehberi</h2>
-
-        <!-- Konu 1 -->
-        <div class="topic-card">
-            <h3>1. Positif Tam Sayıların Pozitif Tam Sayı Çarpanları (Bölenleri)</h3>
-            <p>Her pozitif tam sayı, iki pozitif tam sayının çarpımı şeklinde yazılabilir. Bu sayılara o sayının <b>çarpanları</b> denir. Bir sayının çarpanı aynı zamanda o sayıyı tam böldüğü için <b>çarpan = bölen</b> demektir.</p>
-            <div class="formula-box">
-                <b>Örnek: 36 sayısının pozitif çarpanlarını bulalım:</b><br>
-                1 × 36 = 36 | 2 × 18 = 36 | 3 × 12 = 36 | 4 × 9 = 36 | 6 × 6 = 36<br>
-                <b>36'nın Çarpanları:</b> 1, 2, 3, 4, 6, 9, 12, 18, 36 (9 adet çarpanı vardır).
-            </div>
-            <div class="lgs-tip">
-                📌 <b>LGS İpucu:</b> Bir sayının pozitif tam sayı çarpan sayısı genellikle çift sayıdır. Sadece <b>tam kare sayıların</b> (1, 4, 9, 16, 25, 36, 49, 64, 81, 100...) pozitif çarpan sayısı **TEK** sayıdadır!
-            </div>
+    <!-- 1. BÖLÜM: KONU ANLATIMI & ETKİLEŞİMLİ SORULAR -->
+    <div id="konular" class="main-section active">
+        
+        <!-- Alt Konu Butonları -->
+        <div class="topic-menu">
+            <button class="topic-btn active" onclick="openSubTopic(event, 'sub1')">1. Pozitif Çarpanlar</button>
+            <button class="topic-btn" onclick="openSubTopic(event, 'sub2')">2. Asal Çarpanlar</button>
+            <button class="topic-btn" onclick="openSubTopic(event, 'sub3')">3. EBOB ve Problemleri</button>
+            <button class="topic-btn" onclick="openSubTopic(event, 'sub4')">4. EKOK ve Problemleri</button>
+            <button class="topic-btn" onclick="openSubTopic(event, 'sub5')">5. Aralarında Asallık</button>
         </div>
 
-        <!-- Konu 2 -->
-        <div class="topic-card">
-            <h3>2. Asal Sayılar ve Asal Çarpanlara Ayırma</h3>
-            <p>1 ve kendisinden başka hiçbir pozitif tam sayıya tam bölünmeyen 1'den büyük doğal sayılara <b>asal sayı</b> denir.</p>
-            <p><b>Asal Sayılar:</b> 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97...</p>
-            <ul>
-                <li>En küçük asal sayı <b>2</b>'dir.</li>
-                <li><b>2 dışında çift asal sayı yoktur.</b></li>
-            </ul>
-            <div class="formula-box">
-                <b>Asal Çarpan Algoritması (Bölen Listesi):</b><br>
-                120 sayısını asal çarpanlarına ayıralım:<br>
-                120 | 2<br>
-                60  | 2<br>
-                30  | 2<br>
-                15  | 3<br>
-                5   | 5<br>
-                1<br>
-                <b>Üslü Gösterim:</b> 120 = 2³ × 3¹ × 5¹
-            </div>
-        </div>
+        <!-- ALT KONU 1: Pozitif Çarpanlar -->
+        <div id="sub1" class="subtopic-content active">
+            <div class="content-box">
+                <h2>1. Pozitif Tam Sayı Çarpanları (Bölenleri)</h2>
+                <p>Bir pozitif tam sayıyı <b>kalansız (tam) bölen</b> her tam sayıya o sayının <b>çarpanı</b> veya <b>böleni</b> denir. Çarpan ile bölen tamamen aynı anlamı taşır.</p>
+                <p>Çarpanları bulurken genellikle gökkuşağı yönteminden veya ikili çarpım yönteminden yararlanırız.</p>
 
-        <!-- Konu 3 -->
-        <div class="topic-card">
-            <h3>3. EBOB ve EKOK ve Problem Mantığı</h3>
-            <p><b>EBOB (En Büyük Ortak Bölen):</b> İki ya da daha fazla sayının ortak olan bölenlerinin en büyüğüdür.</p>
-            <p><b>EKOK (En Küçük Ortak Kat):</b> İki ya da daha fazla sayının ortak olan katlarının en küçüğüdür.</p>
-            
-            <div class="lgs-tip">
-                🚨 <b>LGS PROBLEM ÇÖZME STRATEJİSİ:</b><br>
-                • <b>Ne zaman EBOB kullanılır?</b> Büyük parçalardan küçük eşit parçalar elde ediliyorsa. (Kumaşları/kabloları eşit boyda kesme, tarlanın etrafına eşit aralıklarla ağaç/direk dikme, bidonlardaki sıvıları kaplara paylaştırma).<br>
-                • <b>Ne zaman EKOK kullanılır?</b> Küçük parçalar birleştirilip büyük bir yapı oluşturuluyorsa veya zaman problemleri varsa. (Birlikte tutulan nöbetler, zil çalma süreleri, otobüs seferleri, fayanslarla kare alan kaplama).
-            </div>
-        </div>
-
-        <!-- Konu 4 -->
-        <div class="topic-card">
-            <h3>4. Aralarında Asal Sayılar</h3>
-            <p>1'den başka ortak pozitif böleni olmayan iki veya daha fazla doğal sayıya <b>aralarında asal sayılar</b> denir.</p>
-            <div class="formula-box">
-                <b>Önemli Özellikler:</b>
-                <ol>
-                    <li>Sayıların kendilerinin asal olması gerekmez! Örn: 8 ve 9 asal değildir ama <b>aralarında asaldır</b>.</li>
-                    <li>Ardışık doğal sayılar her zaman aralarında asaldır. (Örn: 14 ve 15)</li>
-                    <li>1 sayısı tüm pozitif tam sayılarla aralarında asaldır.</li>
-                    <li>Aralarında asal sayıların <b>EBOB'u her zaman 1'dir</b>.</li>
-                    <li>Aralarında asal sayıların <b>EKOK'u sayıların çarpımına eşittir</b> (EKOK = a × b).</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2. HESAPLAMA LABORATUVARI -->
-    <div id="hesaplama" class="tab-content">
-        <h2>🧮 İnteraktif Matematik Hesaplayıcı</h2>
-        <p>İstediğiniz sayıları girerek sonuçları adım adım analiz edin:</p>
-
-        <div class="grid-2">
-            <!-- Tek Sayı Hesabı -->
-            <div class="calc-card">
-                <h4>🔍 Sayı Analizi (Çarpan & Asal Çarpan)</h4>
-                <div class="input-group">
-                    <label>Pozitif Tam Sayı:</label>
-                    <input type="number" id="calc-single-input" placeholder="Örn: 72">
+                <div class="example-box">
+                    <b>🔍 Örnek: 45 sayısının çarpanlarını bulalım:</b><br>
+                    1 × 45 = 45<br>
+                    3 × 15 = 45<br>
+                    5 × 9 = 45<br>
+                    <b>45'in Çarpanları (Küçükten Büyüğe):</b> 1, 3, 5, 9, 15, 45 (Toplam 6 adet çarpanı vardır).
                 </div>
-                <button class="btn-action" onclick="analyzeSingleNumber()">Analiz Et</button>
-                <div id="single-result" class="res-box" style="display:none;"></div>
+
+                <div class="lgs-tip">
+                    📌 <b>LGS Altın İpucu:</b> Bir pozitif tam sayının çarpan sayısı kural olarak çift adettir. <b>Sadece tam kare sayıların (1, 4, 9, 16, 25, 36, 49, 64, 81, 100...) pozitif çarpan sayısı TEK adettir!</b><br>
+                    <i>Örnek: 36'nın çarpanları ➔ 1, 2, 3, 4, 6, 9, 12, 18, 36 (9 adet - TEK)</i>
+                </div>
             </div>
 
-            <!-- İki Sayı Hesabı (EBOB / EKOK) -->
+            <!-- Konuya Özel Etkileşimli Soru -->
+            <div class="interactive-quiz">
+                <div class="quiz-title">🎯 Konu Kavrama Sorusu (Pozitif Çarpanlar)</div>
+                <p><b>Soru:</b> Kenar uzunlukları cm cinsinden birer tam sayı ve alanı 60 cm² olan bir dikdörtgenin çevresi <u>en az</u> kaç cm olabilir?</p>
+                <div class="opt-grid">
+                    <button class="opt-btn" onclick="checkSubQuiz(1, 0, false)">A) 32 cm</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(1, 1, true)">B) 34 cm</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(1, 2, false)">C) 38 cm</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(1, 3, false)">D) 122 cm</button>
+                </div>
+                <div id="sub1-fb" class="feedback-box"></div>
+            </div>
+        </div>
+
+        <!-- ALT KONU 2: Asal Çarpanlar -->
+        <div id="sub2" class="subtopic-content">
+            <div class="content-box">
+                <h2>2. Asal Sayılar ve Asal Çarpanlara Ayırma</h2>
+                <p>Sadece 1'e ve kendisine bölünebilen 1'den büyük doğal sayılara <b>asal sayı</b> denir.<br>
+                <b>İlk Asal Sayılar:</b> 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47...</p>
+                <ul>
+                    <li>En küçük asal sayı <b>2</b>'dir.</li>
+                    <li>2 dışındaki tüm asal sayılar <b>tek sayıdır</b>. (2 çift olan tek asal sayıdır).</li>
+                </ul>
+
+                <div class="example-box">
+                    <b>🔍 Bölen Listesi (Algoritma) Yöntemi ile 90 Sayısını Ayırma:</b><br>
+                    90 | 2<br>
+                    45 | 3<br>
+                    15 | 3<br>
+                    5  | 5<br>
+                    1<br>
+                    <b>90'ın Asal Çarpanları:</b> 2, 3 ve 5'tir.<br>
+                    <b>Üslü Gösterim:</b> 90 = 2¹ × 3² × 5¹
+                </div>
+
+                <div class="lgs-tip">
+                    💡 <b>LGS İpucu:</b> Bir sayının asal çarpanlarının üsleri 1 arttırılarak çarpılırsa, o sayının **toplam pozitif çarpan sayısı** bulunur!<br>
+                    <i>Örn: 90 = 2¹ × 3² × 5¹ ➔ (1+1) × (2+1) × (1+1) = 2 × 3 × 2 = 12 tane çarpanı vardır.</i>
+                </div>
+            </div>
+
+            <div class="interactive-quiz">
+                <div class="quiz-title">🎯 Konu Kavrama Sorusu (Asal Çarpanlar)</div>
+                <p><b>Soru:</b> A = 2³ × 3¹ × 7¹ şeklinde asal çarpanlarına ayrılan A sayısı kaçtır?</p>
+                <div class="opt-grid">
+                    <button class="opt-btn" onclick="checkSubQuiz(2, 0, false)">A) 42</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(2, 1, false)">B) 84</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(2, 2, true)">C) 168</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(2, 3, false)">D) 252</button>
+                </div>
+                <div id="sub2-fb" class="feedback-box"></div>
+            </div>
+        </div>
+
+        <!-- ALT KONU 3: EBOB ve Problemleri -->
+        <div id="sub3" class="subtopic-content">
+            <div class="content-box">
+                <h2>3. EBOB (En Büyük Ortak Bölen) ve Problem Mantığı</h2>
+                <p>İki ya da daha fazla pozitif tam sayının ortak bölenlerinden en büyüğüne bu sayıların <b>En Büyük Ortak Böleni (EBOB)</b> denir.</p>
+
+                <div class="example-box">
+                    <b>🔍 EBOB(24, 36) Hesaplama:</b><br>
+                    24'ün bölenleri: 1, 2, 3, 4, 6, 8, <b>12</b>, 24<br>
+                    36'nın bölenleri: 1, 2, 3, 4, 6, 9, <b>12</b>, 18, 36<br>
+                    Ortak bölenler: 1, 2, 3, 4, 6, 12 ➔ En büyüğü <b>12</b>'dir.
+                </div>
+
+                <div class="lgs-tip">
+                    🚨 <b>EBOB PROBLEM HİLELERİ (Bütünden Parçaya):</b><br>
+                    Aşağıdaki kalıpları gördüğünüzde soru %99 EBOB problemidir:<br>
+                    1. Bidonlardaki/çuvallardaki ürünleri küçük poşetlere/şişelere doldurma.<br>
+                    2. Tarlanın/bahçenin etrafına eşit aralıklarla direk/ağaç dikme.<br>
+                    3. Kumaş, tahta veya demir çubukları eşit uzunlukta parçalara kesme.
+                </div>
+            </div>
+
+            <div class="interactive-quiz">
+                <div class="quiz-title">🎯 Konu Kavrama Sorusu (EBOB Problemi)</div>
+                <p><b>Soru:</b> 48 kg ve 60 kg ağırlığındaki iki farklı un birbirine karıştırılmadan ve hiç artmayacak şekilde eşit büyüklükteki torbalara doldurulacaktır. En az kaç torba gerekir?</p>
+                <div class="opt-grid">
+                    <button class="opt-btn" onclick="checkSubQuiz(3, 0, true)">A) 9</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(3, 1, false)">B) 12</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(3, 2, false)">C) 15</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(3, 3, false)">D) 18</button>
+                </div>
+                <div id="sub3-fb" class="feedback-box"></div>
+            </div>
+        </div>
+
+        <!-- ALT KONU 4: EKOK ve Problemleri -->
+        <div id="sub4" class="subtopic-content">
+            <div class="content-box">
+                <h2>4. EKOK (En Küçük Ortak Kat) ve Problem Mantığı</h2>
+                <p>İki ya da daha fazla pozitif tam sayının pozitif ortak katlarının en küçüğüne bu sayıların <b>En Küçük Ortak Katı (EKOK)</b> denir.</p>
+
+                <div class="example-box">
+                    <b>🔍 EKOK(12, 15) Hesaplama:</b><br>
+                    12'nin katları: 12, 24, 36, 48, <b>60</b>, 72, 84...<br>
+                    15'in katları: 15, 30, 45, <b>60</b>, 75, 90...<br>
+                    En küçük ortak kat = <b>60</b>'tır.
+                </div>
+
+                <div class="lgs-tip">
+                    🚨 <b>EKOK PROBLEM HİLELERİ (Parçadan Bütüne):</b><br>
+                    Aşağıdaki durumlarda EKOK kullanılır:<br>
+                    1. Zillerin birlikte çalması, hekimlerin/nöbetçilerin birlikte nöbet tutması.<br>
+                    2. Otobüs veya gemilerin sefer saatlerinin kesişmesi.<br>
+                    3. Küçük tuğlalardan/kutu kaplamalarından büyük bir küp veya kare alan oluşturma.<br>
+                    4. Bilyeleri 3'er 3'er ve 5'er 5'er sayınca artan sorular.
+                </div>
+            </div>
+
+            <div class="interactive-quiz">
+                <div class="quiz-title">🎯 Konu Kavrama Sorusu (EKOK Problemi)</div>
+                <p><b>Soru:</b> İki saatten birincisi 15 dakikada bir, ikincisi 20 dakikada bir alarm çalmaktadır. Bu saatler ilk kez saat 08:00'de birlikte çaldıklarına göre, ikinci kez saat kaçta birlikte çalarlar?</p>
+                <div class="opt-grid">
+                    <button class="opt-btn" onclick="checkSubQuiz(4, 0, false)">A) 08:30</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(4, 1, true)">B) 09:00</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(4, 2, false)">C) 09:30</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(4, 3, false)">D) 10:00</button>
+                </div>
+                <div id="sub4-fb" class="feedback-box"></div>
+            </div>
+        </div>
+
+        <!-- ALT KONU 5: Aralarında Asallık -->
+        <div id="sub5" class="subtopic-content">
+            <div class="content-box">
+                <h2>5. Aralarında Asal Sayılar</h2>
+                <p>1'den başka ortak pozitif böleni olmayan iki veya daha fazla doğal sayıya <b>aralarında asal sayılar</b> denir.</p>
+
+                <div class="example-box">
+                    <b>🔍 Örnek: 8 ve 15 sayılarını inceleyelim:</b><br>
+                    8'in bölenleri: 1, 2, 4, 8<br>
+                    15'in bölenleri: 1, 3, 5, 15<br>
+                    Ortak bölenleri sadece <b>1</b> olduğu için 8 ile 15 <b>aralarında asaldır</b>.
+                </div>
+
+                <div class="lgs-tip">
+                    ⚡ <b>Aralarında Asallık Altın Kuralları:</b><br>
+                    1. Sayıların asal olması şart değildir! (8 ve 15 ikisi de asal değildir ama aralarında asaldır).<br>
+                    2. Ardışık sayılar (örn: 14 ile 15) her zaman aralarında asaldır.<br>
+                    3. Aralarında asal iki sayının <b>EBOB'u her zaman 1'e eşittir</b>.<br>
+                    4. Aralarında asal iki sayının <b>EKOK'u sayıların çarpımına eşittir</b> (EKOK = a × b).
+                </div>
+            </div>
+
+            <div class="interactive-quiz">
+                <div class="quiz-title">🎯 Konu Kavrama Sorusu (Aralarında Asallık)</div>
+                <p><b>Soru:</b> Aralarında asal iki pozitif tam sayının çarpımı 72'dir. Bu sayıların EBOB'u ile EKOK'unun toplamı kaçtır?</p>
+                <div class="opt-grid">
+                    <button class="opt-btn" onclick="checkSubQuiz(5, 0, false)">A) 72</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(5, 1, true)">B) 73</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(5, 2, false)">C) 144</button>
+                    <button class="opt-btn" onclick="checkSubQuiz(5, 3, false)">D) 71</button>
+                </div>
+                <div id="sub5-fb" class="feedback-box"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 2. BÖLÜM: AYRI HESAPLAMA ARAÇLARI -->
+    <div id="hesaplayici" class="main-section">
+        <h2>🧮 Otomatik Matematik Hesaplayıcılar</h2>
+        <p>Aşağıdaki araçları kullanarak sorularınızın doğru sonuçlarını adım adım hesaplatabilirsiniz:</p>
+
+        <div class="calc-grid">
+            <!-- Çarpan Hesaplama -->
             <div class="calc-card">
-                <h4>⚡ EBOB / EKOK ve Aralarında Asallık</h4>
+                <h3>🔍 Çarpan & Asal Çarpan Bulucu</h3>
+                <div class="input-group">
+                    <label>Sayı Girin:</label>
+                    <input type="number" id="single-num" placeholder="Örn: 60">
+                </div>
+                <button class="action-btn" onclick="calcSingle()">Hesapla</button>
+                <div id="single-res" class="res-box" style="display:none;"></div>
+            </div>
+
+            <!-- EBOB EKOK -->
+            <div class="calc-card">
+                <h3>⚡ EBOB / EKOK Hesaplayıcı</h3>
                 <div class="input-group">
                     <label>1. Sayı:</label>
-                    <input type="number" id="calc-num1" placeholder="Örn: 45">
+                    <input type="number" id="num1" placeholder="Örn: 24">
                 </div>
                 <div class="input-group">
                     <label>2. Sayı:</label>
-                    <input type="number" id="calc-num2" placeholder="Örn: 60">
+                    <input type="number" id="num2" placeholder="Örn: 36">
                 </div>
-                <button class="btn-action" onclick="analyzeTwoNumbers()">Hesapla</button>
-                <div id="two-result" class="res-box" style="display:none;"></div>
+                <button class="action-btn" onclick="calcDual()">Hesapla</button>
+                <div id="dual-res" class="res-box" style="display:none;"></div>
             </div>
         </div>
-    </div>
-
-    <!-- 3. ÇARPAN AĞACI SİMÜLATÖRÜ -->
-    <div id="agac" class="tab-content">
-        <h2>🌳 Çarpan Ağacı Simülatörü</h2>
-        <p>Girilen sayının asal çarpanlarına ayrılırken nasıl dallandığını görsel olarak inceleyin:</p>
-        
-        <div class="input-group" style="max-width: 400px;">
-            <label>Çarpan Ağacı Çıkarılacak Sayı:</label>
-            <input type="number" id="tree-num" placeholder="Örn: 48 veya 90">
-        </div>
-        <button class="btn-action" style="max-width: 400px;" onclick="generateFactorTree()">Ağacı Oluştur</button>
-
-        <div id="tree-display" style="margin-top: 30px; text-align: center;"></div>
-    </div>
-
-    <!-- 4. ÇÖZÜMLÜ SORU BANKASI (10 SORU) -->
-    <div id="sorular" class="tab-content">
-        <h2>🎯 LGS Tarzı Çözümlü Soru Bankası</h2>
-        <p>Öğrendiklerinizi test edin. Seçtiğiniz şıkka göre detaylı çözümler anında görünür:</p>
-
-        <div id="quiz-container"></div>
     </div>
 </div>
 
 <script>
-    // Tab Değiştirme
-    function openTab(evt, tabName) {
-        let i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].classList.remove("active");
-        }
-        tablinks = document.getElementsByClassName("nav-btn");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
-        }
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
+    // Ana Sekme Değiştirici
+    function switchMainTab(tabId) {
+        document.querySelectorAll('.main-section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.main-nav-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
     }
 
-    // Yardımcı Matematik Fonksiyonları
-    function getGCD(a, b) { return b === 0 ? a : getGCD(b, a % b); }
+    // Alt Konu Sekme Değiştirici
+    function openSubTopic(evt, subId) {
+        document.querySelectorAll('.subtopic-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.topic-btn').forEach(el => el.classList.remove('active'));
 
-    // Tek Sayı Analizi
-    function analyzeSingleNumber() {
-        const val = parseInt(document.getElementById('calc-single-input').value);
-        const res = document.getElementById('single-result');
-        if (!val || val <= 0) { alert("Lütfen pozitif bir sayı girin."); return; }
+        document.getElementById(subId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // Soru Cevap ve Detaylı Çözümler
+    const quizData = {
+        1: {
+            correctMsg: "<b>✅ TEBRİKLER! DOĞRU CEVAP B.</b><br><b>Çözüm:</b> Çevrenin en küçük olması için kenarlar birbirine en yakın seçilmelidir.<br>60'ın çarpan çiftleri: (1,60), (2,30), (3,20), (4,15), (5,12), (6,10).<br>Birbirine en yakın kenarlar 6 cm ve 10 cm'dir.<br>Çevre = 2 × (6 + 10) = 2 × 16 = <b>34 cm</b>.",
+            wrongMsg: "<b>❌ YANLIŞ CEVAP.</b><br><b>İpucu:</b> Alanı verilen dikdörtgenin çevresinin <u>en az</u> olması için kenarların birbirine en yakın çarpan çifti (6 ve 10) seçilmesi gerekir."
+        },
+        2: {
+            correctMsg: "<b>✅ TEBRİKLER! DOĞRU CEVAP C.</b><br><b>Çözüm:</b> Verilen üslü ifadeyi hesaplayalım:<br>2³ = 8<br>3¹ = 3<br>7¹ = 7<br>A = 8 × 3 × 7 = 24 × 7 = <b>168</b>.",
+            wrongMsg: "<b>❌ YANLIŞ CEVAP.</b><br><b>İpucu:</b> Önce 2³ = 8 değerini bulun, ardından 8 × 3 × 7 işlemini çarpın."
+        },
+        3: {
+            correctMsg: "<b>✅ TEBRİKLER! DOĞRU CEVAP A.</b><br><b>Çözüm:</b> Bütünden parçaya gidiş olduğu için EBOB bulunur.<br>EBOB(48, 60) = 12 kg (Bir torbanın alacağı maksimum un).<br>48 kg için = 48 / 12 = 4 torba<br>60 kg için = 60 / 12 = 5 torba<br>Toplam = 4 + 5 = <b>9 torba</b>.",
+            wrongMsg: "<b>❌ YANLIŞ CEVAP.</b><br><b>İpucu:</b> Önce EBOB(48, 60) bularak bir torbanın kaç kg un alacağını hesaplayın, sonra toplam un miktarını bu sayıya bölün."
+        },
+        4: {
+            correctMsg: "<b>✅ TEBRİKLER! DOĞRU CEVAP B.</b><br><b>Çözüm:</b> Saatlerin tekrar birlikte çalma süresi EKOK ile bulunur.<br>EKOK(15, 20) = 60 dakika (1 saat).<br>İlk çalma saat 08:00 olduğuna göre 1 saat eklersek 2. çalma saat <b>09:00</b> olur.",
+            wrongMsg: "<b>❌ YANLIŞ CEVAP.</b><br><b>İpucu:</b> 15 ve 20 sayılarının EKOK'unu bulun. Çıkan dakika sonucunu 08:00'e ekleyin."
+        },
+        5: {
+            correctMsg: "<b>✅ TEBRİKLER! DOĞRU CEVAP B.</b><br><b>Çözüm:</b> Aralarında asal sayıların EBOB'u <b>1</b>'dir.<br>EKOK'ları ise bu sayıların çarpımına eşittir (<b>72</b>).<br>EBOB + EKOK = 1 + 72 = <b>73</b> olur.",
+            wrongMsg: "<b>❌ YANLIŞ CEVAP.</b><br><b>İpucu:</b> Aralarında asal sayıların EBOB'u her zaman 1'dir, EKOK'u ise sayıların çarpımıdır."
+        }
+    };
+
+    function checkSubQuiz(subNum, optIdx, isCorrect) {
+        const fbBox = document.getElementById(`sub${subNum}-fb`);
+        fbBox.style.display = 'block';
+
+        if (isCorrect) {
+            fbBox.className = 'feedback-box correct';
+            fbBox.innerHTML = quizData[subNum].correctMsg;
+        } else {
+            fbBox.className = 'feedback-box wrong';
+            fbBox.innerHTML = quizData[subNum].wrongMsg;
+        }
+    }
+
+    // Matematik Hesaplayıcılar
+    function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+    function calcSingle() {
+        const val = parseInt(document.getElementById('single-num').value);
+        const res = document.getElementById('single-res');
+        if (!val || val <= 0) { alert("Lütfen pozitif tam sayı girin."); return; }
 
         let factors = [];
         for (let i = 1; i <= val; i++) {
             if (val % i === 0) factors.push(i);
         }
 
-        let temp = val;
-        let primes = {};
-        let d = 2;
+        let temp = val, primes = {}, d = 2;
         while (temp > 1) {
             if (temp % d === 0) {
                 primes[d] = (primes[d] || 0) + 1;
@@ -441,188 +594,29 @@
 
         res.style.display = 'block';
         res.innerHTML = `
-            <b>Tüm Pozitif Çarpanlar (${factors.length} adet):</b><br>
-            ${factors.map(f => `<span class="badge">${f}</span>`).join('')}<br><br>
+            <b>Çarpanlar (${factors.length} adet):</b><br>${factors.map(f => `<span class="badge">${f}</span>`).join('')}<br><br>
             <b>Asal Çarpanlar:</b> ${Object.keys(primes).join(', ')}<br>
-            <b>Üslü Gösterim:</b> ${val} = ${primeExp}<br>
-            <b>Çarpan Sayısı Türü:</b> ${factors.length % 2 === 1 ? 'Tek Sayı (Tam Kare Sayı)' : 'Çift Sayı'}
+            <b>Üslü Gösterim:</b> ${val} = ${primeExp}
         `;
     }
 
-    // İki Sayı Analizi
-    function analyzeTwoNumbers() {
-        const n1 = parseInt(document.getElementById('calc-num1').value);
-        const n2 = parseInt(document.getElementById('calc-num2').value);
-        const res = document.getElementById('two-result');
+    function calcDual() {
+        const n1 = parseInt(document.getElementById('num1').value);
+        const n2 = parseInt(document.getElementById('num2').value);
+        const res = document.getElementById('dual-res');
 
         if (!n1 || !n2 || n1 <= 0 || n2 <= 0) { alert("Lütfen iki pozitif sayı girin."); return; }
 
-        const ebob = getGCD(n1, n2);
+        const ebob = gcd(n1, n2);
         const ekok = (n1 * n2) / ebob;
-        const isCoprime = ebob === 1;
 
         res.style.display = 'block';
         res.innerHTML = `
             <b>EBOB(${n1}, ${n2}):</b> ${ebob}<br>
             <b>EKOK(${n1}, ${n2}):</b> ${ekok}<br>
-            <b>Aralarında Asal mı?:</b> ${isCoprime ? '✅ Evet' : '❌ Hayır'}<br>
-            <b>Kural Doğrulaması:</b> EBOB × EKOK = ${ebob * ekok} (Sayıların Çarpımı: ${n1 * n2})
+            <b>Aralarında Asal mı?:</b> ${ebob === 1 ? '<span style="color:green;font-weight:bold;">Evet</span>' : '<span style="color:red;font-weight:bold;">Hayır</span>'}
         `;
     }
-
-    // Çarpan Ağacı
-    function generateFactorTree() {
-        const num = parseInt(document.getElementById('tree-num').value);
-        const disp = document.getElementById('tree-display');
-        if (!num || num <= 1) { alert("Lütfen 1'den büyük bir sayı girin."); return; }
-
-        let html = `<div><b>${num} Sayısının Çarpan Ağacı Adımları:</b></div><br>`;
-        let curr = num;
-        let divisor = 2;
-        let step = 1;
-
-        while (curr > 1) {
-            if (curr % divisor === 0) {
-                let next = curr / divisor;
-                html += `<div style="margin-bottom: 10px;"><b>Adım ${step}:</b> <span class="tree-node" style="color:red">${divisor}</span> × <span class="tree-node">${next}</span> = ${curr}</div>`;
-                curr = next;
-                step++;
-            } else {
-                divisor++;
-            }
-        }
-        disp.innerHTML = html;
-    }
-
-    // 10 adet LGS Tarzı Soru Verisi
-    const questions = [
-        {
-            id: 1,
-            tag: "Çarpan Bulma",
-            text: "Ahmet, alanı 48 cm² olan dikdörtgen şeklindeki bir kartonun kenar uzunluklarının cm cinsinden birer tam sayı olduğunu biliyor. Bu kartonun çevresi aşağıdakilerden hangisi <u>olamaz</u>?",
-            options: ["A) 98 cm", "B) 38 cm", "C) 28 cm", "D) 24 cm"],
-            correct: 3,
-            sol: "<b>Çözüm:</b> Alanı 48 olan dikdörtgenin kenarları 48'in çarpanlarıdır.<br>• 1 x 48 ➔ Çevre = 2(1+48) = 98 cm (A şıkkı)<br>• 2 x 24 ➔ Çevre = 2(2+24) = 52 cm<br>• 3 x 16 ➔ Çevre = 2(3+16) = 38 cm (B şıkkı)<br>• 4 x 12 ➔ Çevre = 2(4+12) = 32 cm<br>• 6 x 8  ➔ Çevre = 2(6+8)  = 28 cm (C şıkkı)<br>Sonuç olarak çevre <b>24 cm olamaz</b>."
-        },
-        {
-            id: 2,
-            tag: "EBOB / Tarlaya Direk Dikme",
-            text: "Eni 60 metre, boyu 84 metre olan dikdörtgen biçimindeki bir tarlanın etrafına, köşelere de dikilmek şartıyla eşit aralıklarla aydınlatma direkleri dikilecektir. En az kaç direk gereklidir?",
-            options: ["A) 12", "B) 24", "C) 14", "D) 28"],
-            correct: 2,
-            sol: "<b>Çözüm:</b> Bütünden parçaya gidildiği için EBOB bulunur.<br>EBOB(60, 84) = 12 metre (Aralık genişliği).<br>Tarlanın Çevresi = 2 × (60 + 84) = 288 metre.<br>Direk Sayısı = Çevre / Aralık = 288 / 12 = <b>14 direk</b>."
-        },
-        {
-            id: 3,
-            tag: "EKOK / Zaman Problemleri",
-            text: "Bir hastanedeki iki doktordan birincisi 6 günde bir, ikincisi 8 günde bir nöbet tutmaktadır. Bu iki doktor ilk nöbetlerini birlikte Salı günü tuttuklarına göre, 2. kez birlikte hangi gün nöbet tutarlar?",
-            options: ["A) Pazar", "B) Pazartesi", "C) Çarşamba", "D) Cuma"],
-            correct: 0,
-            sol: "<b>Çözüm:</b> Tekrar karşılaşma süreleri için EKOK alınır.<br>EKOK(6, 8) = 24 gün sonra tekrar birlikte nöbet tutarlar.<br>24 gün = 3 hafta + 3 gün.<br>Salı gününe 3 gün eklersek: Çarşamba (1), Perşembe (2), <b>Pazar (3)</b> (24 mod 7 = 3 ➔ Salı + 3 gün = Cuma olur, 24 mod 7 hesaplanırsa 24=3x7+3; Salı+3=Cuma). Ancak şıklarda Cuma D seçeneğidir. 24 gün sonra: Salı+3 gün = Cuma."
-        },
-        {
-            id: 4,
-            tag: "Aralarında Asal Sayılar",
-            text: "Aralarında asal iki pozitif tam sayının EKOK'u 180'dir. Bu sayılardan biri 9 olduğuna göre diğer sayı kaçtır?",
-            options: ["A) 10", "B) 15", "C) 20", "D) 25"],
-            correct: 2,
-            sol: "<b>Çözüm:</b> Aralarında asal sayıların EKOK'u bu sayıların çarpımına eşittir.<br>Sayılar a ve b olsun. a × b = EKOK = 180.<br>9 × b = 180 ➔ b = <b>20</b> bulunur. 9 ve 20 aralarında asaldır."
-        },
-        {
-            id: 5,
-            tag: "Asal Çarpan Üslü Gösterim",
-            text: "A = 2³ × 3² × 5 ve B = 2² × 3³ × 7 olduğuna göre, EBOB(A, B) kaçtır?",
-            options: ["A) 12", "B) 36", "C) 108", "D) 216"],
-            correct: 1,
-            sol: "<b>Çözüm:</b> Üslü ifadelerle EBOB bulunurken ortak olan asal tabanlardan üssü <u>küçük olanlar</u> seçilip çarpılır.<br>• 2'lerin ortak küçüğü: 2²<br>• 3'lerin ortak küçüğü: 3²<br>EBOB(A, B) = 2² × 3² = 4 × 9 = <b>36</b>."
-        },
-        {
-            id: 6,
-            tag: "Aralarında Asallık",
-            text: "(x - 2) ile (y + 3) sayıları aralarında asaldır. (x - 2) / (y + 3) = 15 / 21 olduğuna göre, x + y toplamı kaçtır?",
-            options: ["A) 12", "B) 11", "C) 10", "D) 9"],
-            correct: 1,
-            sol: "<b>Çözüm:</b> 15 ve 21 aralarında asal değildir. Önce sadeleştiririz:<br>15/21 = 5/7 (5 ve 7 aralarında asaldır).<br>x - 2 = 5 ➔ x = 7<br>y + 3 = 7 ➔ y = 4<br>x + y = 7 + 4 = <b>11</b>."
-        },
-        {
-            id: 7,
-            tag: "LGS Yeni Nesil / Bidon Paylaştırma",
-            text: "80 litre zeytinyağı ve 96 litre ayçiçek yağı birbirine karıştırılmadan ve hiç artmayacak şekilde eşit hacimdeki şişelere doldurulacaktır. En az kaç şişeye ihtiyaç vardır?",
-            options: ["A) 11", "B) 13", "C) 16", "D) 22"],
-            correct: 0,
-            sol: "<b>Çözüm:</b> EBOB(80, 96) = 16 litre (Bir şişenin maksimum hacmi).<br>Zeytinyağı Şişe Sayısı = 80 / 16 = 5 şişe<br>Ayçiçek Yağı Şişe Sayısı = 96 / 16 = 6 şişe<br>Toplam Şişe = 5 + 6 = <b>11 şişe</b>."
-        },
-        {
-            id: 8,
-            tag: "EKOK / Kare Kaplama",
-            text: "Boyutları 6 cm ve 8 cm olan dikdörtgen şeklindeki kartonlar yan yana dizilerek en küçük boyutlu bir kare oluşturulacaktır. Bu iş için kaç adet karton gereklidir?",
-            options: ["A) 12", "B) 24", "C) 36", "D) 48"],
-            correct: 0,
-            sol: "<b>Çözüm:</b> Parçadan bütüne gidildiği için EKOK bulunur.<br>EKOK(6, 8) = 24 cm (Oluşacak karenin bir kenarı).<br>Kare Alanı / Karton Alanı = (24 × 24) / (6 × 8) = 576 / 48 = <b>12 adet</b>."
-        },
-        {
-            id: 9,
-            tag: "Asal Çarpan Analizi",
-            text: "180 sayısının kaç tane asal çarpanı vardır?",
-            options: ["A) 2", "B) 3", "C) 4", "D) 5"],
-            correct: 1,
-            sol: "<b>Çözüm:</b> 180'i asal çarpanlarına ayıralım:<br>180 = 2² × 3² × 5¹<br>Asal olan tabanlar: 2, 3 ve 5'tir.<br>Toplam <b>3 adet</b> asal çarpanı vardır."
-        },
-        {
-            id: 10,
-            tag: "LGS Beceri Temelli",
-            text: "Bir merdivenin basamaklarını ikişer ikişer ve üçer üçer çıkan bir öğrencinin attığı adım sayıları toplamı 20'dir. Bu merdiven kaç basamaklıdır?",
-            options: ["A) 12", "B) 18", "C) 24", "D) 30"],
-            correct: 2,
-            sol: "<b>Çözüm:</b> Merdiven basamak sayısı hem 2'nin hem 3'ün katı olmalıdır (EKOK(2,3) = 6'nın katı).<br>Basamak sayısı = 6k olsun.<br>İkişer adım sayısı = 6k / 2 = 3k<br>Üçer adım sayısı = 6k / 3 = 2k<br>Toplam Adım = 3k + 2k = 5k = 20 ➔ k = 4.<br>Basamak Sayısı = 6 × 4 = <b>24 basamaklıdır</b>."
-        }
-    ];
-
-    // Soruları Ekrana Basma
-    function renderQuiz() {
-        const container = document.getElementById('quiz-container');
-        let html = '';
-
-        questions.forEach((q, idx) => {
-            html += `
-                <div class="quiz-card">
-                    <div class="quiz-header">
-                        <span style="font-weight:bold; font-size:1.1rem;">Soru ${idx + 1}</span>
-                        <span class="quiz-tag">${q.tag}</span>
-                    </div>
-                    <p style="font-size:1.05rem; line-height:1.5;">${q.text}</p>
-                    <div class="options-grid">
-                        ${q.options.map((opt, optIdx) => `
-                            <button class="opt-btn" onclick="checkQuizAnswer(${q.id}, ${optIdx})">${opt}</button>
-                        `).join('')}
-                    </div>
-                    <div id="expl-${q.id}" class="explanation-box"></div>
-                </div>
-            `;
-        });
-
-        container.innerHTML = html;
-    }
-
-    // Cevap Kontrolü
-    function checkQuizAnswer(qId, selectedIdx) {
-        const q = questions.find(item => item.id === qId);
-        const expBox = document.getElementById(`expl-${qId}`);
-        expBox.style.display = 'block';
-
-        if (selectedIdx === q.correct) {
-            expBox.className = 'explanation-box correct';
-            expBox.innerHTML = `<b>✅ Tebrikler! Doğru Cevap.</b><br>${q.sol}`;
-        } else {
-            expBox.className = 'explanation-box wrong';
-            expBox.innerHTML = `<b>❌ Yanlış Cevap. Tekrar Deneyin!</b><br>${q.sol}`;
-        }
-    }
-
-    // Sayfa Yüklendiğinde
-    window.onload = function() {
-        renderQuiz();
-    };
 </script>
 
 </body>
